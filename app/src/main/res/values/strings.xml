@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Soil Fertility</string>
+    <string name="title_activity_fertilizer_predicting">FertilizerPredictingActivity</string>
 </resources>
