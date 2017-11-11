@@ -16,14 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity
             android:name=".FertilizerPredictingActivity"
             android:label="@string/title_activity_fertilizer_predicting"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-=======
         <activity android:name=".PredictingCrop"></activity>
->>>>>>> b7020dc2ed93aaa4a7e7e8b352885e5bf45d8286
     </application>
 
 </manifest>

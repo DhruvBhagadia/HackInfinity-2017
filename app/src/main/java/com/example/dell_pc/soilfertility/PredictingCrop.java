@@ -2,8 +2,12 @@ package com.example.dell_pc.soilfertility;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,13 +19,19 @@ import android.widget.Toast;
 public class PredictingCrop extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapter;
     int int1, int2, int3, int4, int5, int6, int7, int8, int9;
+    String str1, str2, str3, str4, str5, str6, str7, str8, str9;
     LinearLayout ll8, ll9;
     Button button;
+    SQLiteDatabase farmerDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_predicting_crop);
 
+        farmerDB = this.openOrCreateDatabase("FamerDB",MODE_PRIVATE,null);
+        farmerDB.execSQL("CREATE TABLE IF NOT EXISTS farmerDB (soilType VARCHAR, soilColor VARCHAR, salinity VARCHAR, irrigationAccess VARCHAR, fertility VARCHAR, weather VARCHAR, financialCondition VARCHAR, irrigationCondition VARCHAR, irrigationMethod VARCHAR)");
+        String sql = "INSERT INTO farmerDB (soilType, soilColor, salinity, irrigationAccess, fertility,  weather, financialCondition, irrigationCondition, irrigationMethod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        final SQLiteStatement sqLiteStatement = farmerDB.compileStatement(sql);
         ll8 = (LinearLayout) findViewById(R.id.LL8);
         ll9 = (LinearLayout) findViewById(R.id.LL9);
 
@@ -33,6 +43,7 @@ public class PredictingCrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int1 = position;
+                str1 = parent.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -49,6 +60,8 @@ public class PredictingCrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int2 = position;
+                str2 = parent.getItemAtPosition(position).toString();
+
             }
 
             @Override
@@ -65,6 +78,8 @@ public class PredictingCrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int3 = position;
+                str3 = parent.getItemAtPosition(position).toString();
+
             }
 
             @Override
@@ -81,6 +96,8 @@ public class PredictingCrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int8 = position;
+                str8 = parent.getItemAtPosition(position).toString();
+
             }
 
             @Override
@@ -97,6 +114,8 @@ public class PredictingCrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int9 = position;
+                str9 = parent.getItemAtPosition(position).toString();
+
             }
 
             @Override
@@ -115,6 +134,8 @@ public class PredictingCrop extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 int4 = position;
+                str4 = parent.getItemAtPosition(position).toString();
+
 
                 if (position == 1) {
 
@@ -142,6 +163,8 @@ public class PredictingCrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int5 = position;
+                str5 = parent.getItemAtPosition(position).toString();
+
             }
 
             @Override
@@ -158,6 +181,8 @@ public class PredictingCrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int6 = position;
+                str6 = parent.getItemAtPosition(position).toString();
+
             }
 
             @Override
@@ -174,6 +199,8 @@ public class PredictingCrop extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 int7 = position;
+                str7 = parent.getItemAtPosition(position).toString();
+
             }
 
             @Override
@@ -181,6 +208,9 @@ public class PredictingCrop extends AppCompatActivity {
 
             }
         });
+
+
+
         button = (Button) findViewById(R.id.signUpButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +231,31 @@ public class PredictingCrop extends AppCompatActivity {
 
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
+
+
+                    sqLiteStatement.bindString(1, str1);
+                    sqLiteStatement.bindString(2, str2);
+                    sqLiteStatement.bindString(3, str3);
+                    sqLiteStatement.bindString(4, str4);
+                    sqLiteStatement.bindString(5, str5);
+                    sqLiteStatement.bindString(6, str6);
+                    sqLiteStatement.bindString(7, str7);
+                    sqLiteStatement.bindString(8, str8);
+                    sqLiteStatement.bindString(9, str9);
+                    sqLiteStatement.execute();
+                    /*Cursor c = farmerDB.rawQuery("SELECT * FROM farmerDB",null);
+                    c.moveToFirst();
+                    while (c.moveToNext()){
+
+                        Log.i("soilType",c.getString(c.getColumnIndex("soilType")));
+                        Log.i("soilColor",c.getString(c.getColumnIndex("soilColor")));
+                        Log.i("salinity",c.getString(c.getColumnIndex("salinity")));
+                        Log.i("irrigationAccess",c.getString(c.getColumnIndex("irrigationAccess")));
+                        Log.i( "weather",c.getString(c.getColumnIndex("weather")));
+                        Log.i("financialCondition",c.getString(c.getColumnIndex("financialCondition")));
+                        Log.i("irrigationCondition",c.getString(c.getColumnIndex("irrigationCondition")));
+                        Log.i("irrigationMethod",c.getString(c.getColumnIndex("irrigationMethod")));
+                    }*/
                 }
             }
         });
