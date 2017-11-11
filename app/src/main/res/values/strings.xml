@@ -1,3 +1,66 @@
 <resources>
     <string name="app_name">Soil Fertility</string>
+
+    <string-array name="SoilType">
+        <item>(Select one)</item>
+        <item>Heavy</item>
+        <item>Medium</item>
+        <item>Light</item>
+    </string-array>
+
+    <string-array name="SoilColor">
+        <item>(Select one)</item>
+        <item>Black</item>
+        <item>Red</item>
+        <item>Yellow</item>
+    </string-array>
+
+    <string-array name="Salt">
+        <item>(Select one)</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
+    <string-array name="Irr">
+        <item>(Select one)</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="Fertility">
+        <item>(Select one)</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
+
+    <string-array name="wheather">
+        <item>(Select one)</item>
+        <item>Tropical</item>
+        <item>Subtropical</item>
+        <item>Temperate</item>
+    </string-array>
+
+    <string-array name="FinancialCondition">
+        <item>(Select one)</item>
+        <item>Rich</item>
+        <item>Middle Class</item>
+        <item>Poor</item>
+    </string-array>
+
+    <string-array name="Irrcond">
+        <item>(Select one)</item>
+        <item>Good</item>
+        <item>Medium</item>
+        <item>Poor</item>
+    </string-array>
+
+    <string-array name="IrrMethod">
+        <item>(Select one)</item>
+        <item>Drip</item>
+        <item>Sprinkle</item>
+        <item>Floor</item>
+    </string-array>
+
 </resources>
