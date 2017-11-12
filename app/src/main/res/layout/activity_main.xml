@@ -5,9 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.dell_pc.soilfertility.MainActivity">
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 5f46cbcb6d91900a32042d26b3029770f57897f8
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button1"
+        android:text="NPM Calculator"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

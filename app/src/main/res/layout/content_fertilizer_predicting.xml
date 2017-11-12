@@ -15,7 +15,9 @@
         android:text="Enter NPK content"
         android:gravity="center"
         android:textSize="40sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:id="@+id/n_ll"
@@ -86,13 +88,30 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/crop_ll"
         android:layout_below="@+id/k_ll"
-        android:layout_alignStart="@+id/button2"
-        android:layout_alignEnd="@+id/button2" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crop Type: "
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"/>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/k_ll"
+            android:layout_alignEnd="@+id/title"
+            android:layout_alignStart="@+id/title"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"
@@ -102,6 +121,39 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="41dp"
         android:onClick="onClick"
-        android:id="@+id/button2" />
+        android:id="@+id/button2"
+        android:backgroundTint="@color/colorAccent"/>
+
+        <TextView
+            android:id="@+id/nTV"
+            android:layout_below="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="50dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/pTV"
+            android:layout_below="@+id/nTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="50dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/kTV"
+            android:layout_below="@id/pTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="50dp"
+            android:visibility="invisible"/>
 
 </RelativeLayout>

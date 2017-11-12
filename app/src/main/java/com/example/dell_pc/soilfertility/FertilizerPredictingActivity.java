@@ -14,9 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static java.lang.Math.round;
 
 public class FertilizerPredictingActivity extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
     EditText k_et;
     int cropPos;
     Button button;
+    TextView n_tv, p_tv, k_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,9 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
             n_et = (EditText) findViewById(R.id.n_et);
             p_et = (EditText) findViewById(R.id.p_et);
             k_et = (EditText) findViewById(R.id.k_et);
+            n_tv = (TextView) findViewById(R.id.nTV);
+            p_tv = (TextView) findViewById(R.id.pTV);
+            k_tv = (TextView) findViewById(R.id.kTV);
             Spinner spinner = (Spinner) findViewById(R.id.spinner);
             ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.crops,android.R.layout.simple_spinner_item);
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -356,6 +364,14 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
         Log.i("N Value", n1List.get(cropPos).toString());
         Log.i("P Value", p1List.get(cropPos).toString());
         Log.i("K Value", k1List.get(cropPos).toString());
+
+        n_tv.setText(String.format("N: %.2f", nDiff));
+        p_tv.setText(String.format("P: %.2f", pDiff));
+        k_tv.setText(String.format("K: %.2f", kDiff));
+
+        n_tv.setVisibility(View.VISIBLE);
+        p_tv.setVisibility(View.VISIBLE);
+        k_tv.setVisibility(View.VISIBLE);
     }
 
 }
