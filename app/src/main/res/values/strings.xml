@@ -65,4 +65,14 @@
         <item>Sprinkle</item>
         <item>Floor</item>
     </string-array>
+
+    <string-array name="crops">
+        <item>Jowar</item>
+        <item>Paddy</item>
+        <item>Sesame</item>
+        <item>Wheat</item>
+        <item>Sugarcane</item>
+        <item>Cotton</item>
+    </string-array>
+
 </resources>
