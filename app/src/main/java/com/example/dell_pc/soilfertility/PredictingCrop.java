@@ -259,6 +259,57 @@ public class PredictingCrop extends AppCompatActivity {
                 }
             }
         });
+        try{
+
+            SQLiteDatabase cropsDB = this.openOrCreateDatabase("crops", MODE_PRIVATE, null);
+            cropsDB.execSQL("CREATE TABLE IF NOT EXISTS cropsDB (cropsName VARCHAR, soilType VARCHAR, soilColor VARCHAR, irrigationFacility VARCHAR, salinity VARCHAR)");
+           /* cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Barley', 'light', 'Black', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Wheat', 'light', 'Black', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Bajra', 'light', 'Black', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Moong', 'light', 'Black', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Jowar', 'light', 'Black', 'High', 'Low')"); */
+            SQLiteDatabase cropMSP = this.openOrCreateDatabase("crops", MODE_PRIVATE, null);
+            Cursor c1 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Barley'",null);
+            c1.moveToFirst();
+            while (c1 != null){
+
+                Log.i("MSP: ",c1.getString(c1.getColumnIndex("msp")));
+            }
+            Cursor c2 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Bajra'",null);
+            c2.moveToFirst();
+            while (c2 != null){
+
+                Log.i("MSP: ",c2.getString(c2.getColumnIndex("msp")));
+            }
+
+            Cursor c3 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Moong'",null);
+            c3.moveToFirst();
+            while (c3 != null){
+
+                Log.i("MSP: ",c3.getString(c3.getColumnIndex("msp")));
+            }
+
+            Cursor c4 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Jowar'",null);
+            c4.moveToFirst();
+            while (c4!= null){
+
+                Log.i("MSP: ",c4.getString(c4.getColumnIndex("msp")));
+            }
+
+            Cursor c5 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Wheat'",null);
+            c5.moveToFirst();
+            while (c5 != null){
+
+                Log.i("MSP: ",c5.getString(c5.getColumnIndex("msp")));
+            }
+
+
+        }
+        catch(Exception e) {
+
+            e.printStackTrace();
+
+        }
     }
 
 

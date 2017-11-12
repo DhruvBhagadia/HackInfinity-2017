@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.dell_pc.soilfertility.MainActivity">
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 5f46cbcb6d91900a32042d26b3029770f57897f8
 </RelativeLayout>
