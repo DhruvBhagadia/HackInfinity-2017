@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Soil Fertility</string>
+
     <string name="title_activity_fertilizer_predicting">FertilizerPredictingActivity</string>
+
 
     <string-array name="SoilType">
         <item>(Select one)</item>
@@ -72,4 +74,5 @@
         <item>Sugarcane</item>
         <item>Cotton</item>
     </string-array>
+
 </resources>
