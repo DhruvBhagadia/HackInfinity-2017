@@ -14,9 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static java.lang.Math.round;
 
 public class FertilizerPredictingActivity extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
     EditText k_et;
     int cropPos;
     Button button;
+    TextView n_tv, p_tv, k_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +59,19 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
 
             cropsNPK = this.openOrCreateDatabase("CropsNPK", MODE_PRIVATE, null);
             cropsNPK.execSQL("CREATE TABLE IF NOT EXISTS cropsNPKDB (name VARCHAR, n INTEGER(3), p INTEGER(3), k INTEGER(3))");
+            /*cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Jowar', 75, 40, 0)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Paddy', 100, 30, 0)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Sesame', 20, 25, 0)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Wheat', 120, 60, 0)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Sugarcane', 110, 50, 35)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Cotton', 360, 140, 60)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Sugarcane', 150, 80, 80)");*/
             n_et = (EditText) findViewById(R.id.n_et);
             p_et = (EditText) findViewById(R.id.p_et);
             k_et = (EditText) findViewById(R.id.k_et);
+            n_tv = (TextView) findViewById(R.id.nTV);
+            p_tv = (TextView) findViewById(R.id.pTV);
+            k_tv = (TextView) findViewById(R.id.kTV);
             Spinner spinner = (Spinner) findViewById(R.id.spinner);
             ArrayAdapter arrayAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.crops,android.R.layout.simple_spinner_item);
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -73,10 +88,10 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
                 }
             });
 
-            button = (Button) findViewById(R.id.button);
+            button = (Button) findViewById(R.id.button2);
 
-            /*getFertilizerData();
-            getCropData();*/
+            getFertilizerData();
+            getCropData();
             getCropNPKData();
 
         }catch (Exception e){
@@ -134,12 +149,6 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
             p1List.add(c.getInt(pIndex));
             k1List.add(c.getInt(kIndex));
             c.moveToNext();
-        }
-        for(int i = 0; i<cropName.size(); i++){
-            Log.i("NAME", cropName.get(i));
-            Log.i("N", n1List.get(i).toString());
-            Log.i("P", p1List.get(i).toString());
-            Log.i("K", k1List.get(i).toString());
         }
     }
 
@@ -347,10 +356,22 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
             }
         }
 
+        Log.i("N amt", Double.toString(nDiff));
+        Log.i("P amt", Double.toString(pDiff));
+        Log.i("K amt", Double.toString(kDiff));
+
         Log.i("Crop Name", cropName.get(cropPos));
         Log.i("N Value", n1List.get(cropPos).toString());
         Log.i("P Value", p1List.get(cropPos).toString());
         Log.i("K Value", k1List.get(cropPos).toString());
+
+        n_tv.setText(String.format("N: %.2f", nDiff));
+        p_tv.setText(String.format("P: %.2f", pDiff));
+        k_tv.setText(String.format("K: %.2f", kDiff));
+
+        n_tv.setVisibility(View.VISIBLE);
+        p_tv.setVisibility(View.VISIBLE);
+        k_tv.setVisibility(View.VISIBLE);
     }
 
 }

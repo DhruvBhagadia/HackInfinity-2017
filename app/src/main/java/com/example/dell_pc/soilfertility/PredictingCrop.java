@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +25,7 @@ public class PredictingCrop extends AppCompatActivity {
     int int1, int2, int3, int4, int5, int6, int7, int8, int9;
     String str1, str2, str3, str4, str5, str6, str7, str8, str9;
     LinearLayout ll8, ll9;
-    Button button;
+    Button button, submit;
     SQLiteDatabase farmerDB;
     String result;
     TextView resultTextView;
@@ -45,6 +46,7 @@ public class PredictingCrop extends AppCompatActivity {
         soilColor = new ArrayList<>();
         salinity = new ArrayList<>();
         irrigationFacility = new ArrayList<>();
+        submit = (Button) findViewById(R.id.signUpButton);
 
 
         final Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
@@ -310,7 +312,15 @@ public class PredictingCrop extends AppCompatActivity {
             else
                 result = "Barley";
 
-            resultTextView.setVisibility(View.VISIBLE);
+            submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resultTextView.setText(result);
+                    resultTextView.setTextColor(Color.GREEN);
+                    resultTextView.setVisibility(View.VISIBLE);
+                }
+            });
+
         }
 
 
