@@ -14,7 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class PredictingCrop extends AppCompatActivity {
     ArrayAdapter<CharSequence> adapter;
@@ -23,17 +26,26 @@ public class PredictingCrop extends AppCompatActivity {
     LinearLayout ll8, ll9;
     Button button;
     SQLiteDatabase farmerDB;
+    String result;
+    TextView resultTextView;
+    ArrayList<String> cropsName, soilType, soilColor, salinity, irrigationFacility;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_predicting_crop);
-
+        resultTextView = (TextView) findViewById(R.id.result_tv);
         farmerDB = this.openOrCreateDatabase("FamerDB",MODE_PRIVATE,null);
         farmerDB.execSQL("CREATE TABLE IF NOT EXISTS farmerDB (soilType VARCHAR, soilColor VARCHAR, salinity VARCHAR, irrigationAccess VARCHAR, fertility VARCHAR, weather VARCHAR, financialCondition VARCHAR, irrigationCondition VARCHAR, irrigationMethod VARCHAR)");
-        String sql = "INSERT INTO farmerDB (soilType, soilColor, salinity, irrigationAccess, fertility,  weather, financialCondition, irrigationCondition, irrigationMethod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = ("INSERT INTO farmerDB (soilType, soilColor, salinity, irrigationAccess, fertility,  weather, financialCondition, irrigationCondition, irrigationMethod) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         final SQLiteStatement sqLiteStatement = farmerDB.compileStatement(sql);
         ll8 = (LinearLayout) findViewById(R.id.LL8);
         ll9 = (LinearLayout) findViewById(R.id.LL9);
+        cropsName = new ArrayList<>();
+        soilType = new ArrayList<>();
+        soilColor = new ArrayList<>();
+        salinity = new ArrayList<>();
+        irrigationFacility = new ArrayList<>();
+
 
         final Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
         adapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.SoilType, android.R.layout.simple_spinner_item);
@@ -229,8 +241,8 @@ public class PredictingCrop extends AppCompatActivity {
                 }
                 else {
 
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
+                    resultTextView.setVisibility(View.VISIBLE);
+                    resultTextView.setText(result);
 
 
                     sqLiteStatement.bindString(1, str1);
@@ -243,7 +255,7 @@ public class PredictingCrop extends AppCompatActivity {
                     sqLiteStatement.bindString(8, str8);
                     sqLiteStatement.bindString(9, str9);
                     sqLiteStatement.execute();
-                    /*Cursor c = farmerDB.rawQuery("SELECT * FROM farmerDB",null);
+                    Cursor c = farmerDB.rawQuery("SELECT * FROM farmerDB",null);
                     c.moveToFirst();
                     while (c.moveToNext()){
 
@@ -255,56 +267,53 @@ public class PredictingCrop extends AppCompatActivity {
                         Log.i("financialCondition",c.getString(c.getColumnIndex("financialCondition")));
                         Log.i("irrigationCondition",c.getString(c.getColumnIndex("irrigationCondition")));
                         Log.i("irrigationMethod",c.getString(c.getColumnIndex("irrigationMethod")));
-                    }*/
+                    }
                 }
             }
         });
-        try{
+        try {
 
-            SQLiteDatabase cropsDB = this.openOrCreateDatabase("crops", MODE_PRIVATE, null);
+            SQLiteDatabase cropsDB = this.openOrCreateDatabase("cropSDB", MODE_PRIVATE, null);
             cropsDB.execSQL("CREATE TABLE IF NOT EXISTS cropsDB (cropsName VARCHAR, soilType VARCHAR, soilColor VARCHAR, irrigationFacility VARCHAR, salinity VARCHAR)");
-           /* cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Barley', 'light', 'Black', 'High', 'Low')");
-            cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Wheat', 'light', 'Black', 'High', 'Low')");
-            cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Bajra', 'light', 'Black', 'High', 'Low')");
-            cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Moong', 'light', 'Black', 'High', 'Low')");
-            cropsDB.execSQL("INSERT INTO cropsDB VALUES ('Jowar', 'light', 'Black', 'High', 'Low')"); */
-            SQLiteDatabase cropMSP = this.openOrCreateDatabase("crops", MODE_PRIVATE, null);
-            Cursor c1 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Barley'",null);
-            c1.moveToFirst();
-            while (c1 != null){
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Barley', 'light', 'Black', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Wheat', 'light', 'Red', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Bajra', 'Medium', 'Black', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Moong', 'light', 'Black', 'Medium', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Jowar', 'light', 'Yellow', 'High', 'Low')");
+            cropsName.clear();
+            soilType.clear();
+            soilColor.clear();
+            salinity.clear();
+            irrigationFacility.clear();
+            Cursor c = cropsDB.rawQuery("SELECT * FROM cropsDB", null);
+            c.moveToFirst();
+            while (c.moveToNext()) {
 
-                Log.i("MSP: ",c1.getString(c1.getColumnIndex("msp")));
-            }
-            Cursor c2 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Bajra'",null);
-            c2.moveToFirst();
-            while (c2 != null){
+                cropsName.add(c.getString(c.getColumnIndex("cropsName")));
+                soilType.add(c.getString(c.getColumnIndex("soilType")));
+                soilColor.add(c.getString(c.getColumnIndex("soilColor")));
+                salinity.add(c.getString(c.getColumnIndex("salinity")));
+                irrigationFacility.add(c.getString(c.getColumnIndex("irrigationFacility")));
 
-                Log.i("MSP: ",c2.getString(c2.getColumnIndex("msp")));
-            }
-
-            Cursor c3 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Moong'",null);
-            c3.moveToFirst();
-            while (c3 != null){
-
-                Log.i("MSP: ",c3.getString(c3.getColumnIndex("msp")));
             }
 
-            Cursor c4 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Jowar'",null);
-            c4.moveToFirst();
-            while (c4!= null){
-
-                Log.i("MSP: ",c4.getString(c4.getColumnIndex("msp")));
+            if(soilColor.get(1) == "Red")
+            {
+                result = "Wheat";
             }
+            else if (soilType.get(2) == "Medium")
+                result = "Bajra";
+            else if (irrigationFacility.get(3) == "Medium")
+                result = "Moong";
+            else if (soilColor.get(4) == "Yellow")
+                result = "Jowar";
+            else
+                result = "Barley";
 
-            Cursor c5 = cropMSP.rawQuery("SELECT * FROM cropMSP WHERE cropName = 'Wheat'",null);
-            c5.moveToFirst();
-            while (c5 != null){
-
-                Log.i("MSP: ",c5.getString(c5.getColumnIndex("msp")));
-            }
-
-
+            resultTextView.setVisibility(View.VISIBLE);
         }
+
+
         catch(Exception e) {
 
             e.printStackTrace();
@@ -312,5 +321,10 @@ public class PredictingCrop extends AppCompatActivity {
         }
     }
 
-
+/*cropsDB.execSQL("CREATE TABLE IF NOT EXISTS cropsDB (cropsName VARCHAR, soilType VARCHAR, soilColor VARCHAR, irrigationFacility VARCHAR, salinity VARCHAR)");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Barley', 'light', 'Black', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Wheat', 'light', 'Red', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Bajra', 'Medium', 'Black', 'High', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Moong', 'light', 'Black', 'Medium', 'Low')");
+            cropsDB.execSQL("INSERT INTO cropsDB VALUES('Jowar', 'light', 'Yellow', 'High', 'Low')");*/
     }
