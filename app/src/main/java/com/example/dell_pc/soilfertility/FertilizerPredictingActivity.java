@@ -54,6 +54,13 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
 
             cropsNPK = this.openOrCreateDatabase("CropsNPK", MODE_PRIVATE, null);
             cropsNPK.execSQL("CREATE TABLE IF NOT EXISTS cropsNPKDB (name VARCHAR, n INTEGER(3), p INTEGER(3), k INTEGER(3))");
+            /*cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Jowar', 75, 40, 0)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Paddy', 100, 30, 0)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Sesame', 20, 25, 0)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Wheat', 120, 60, 0)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Sugarcane', 110, 50, 35)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Cotton', 360, 140, 60)");
+            cropsNPK.execSQL("INSERT INTO cropsNPKDB (name, n, p, k) VALUES ('Sugarcane', 150, 80, 80)");*/
             n_et = (EditText) findViewById(R.id.n_et);
             p_et = (EditText) findViewById(R.id.p_et);
             k_et = (EditText) findViewById(R.id.k_et);
@@ -73,10 +80,10 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
                 }
             });
 
-            button = (Button) findViewById(R.id.button);
+            button = (Button) findViewById(R.id.button2);
 
-            /*getFertilizerData();
-            getCropData();*/
+            getFertilizerData();
+            getCropData();
             getCropNPKData();
 
         }catch (Exception e){
@@ -134,12 +141,6 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
             p1List.add(c.getInt(pIndex));
             k1List.add(c.getInt(kIndex));
             c.moveToNext();
-        }
-        for(int i = 0; i<cropName.size(); i++){
-            Log.i("NAME", cropName.get(i));
-            Log.i("N", n1List.get(i).toString());
-            Log.i("P", p1List.get(i).toString());
-            Log.i("K", k1List.get(i).toString());
         }
     }
 
@@ -346,6 +347,10 @@ public class FertilizerPredictingActivity extends AppCompatActivity {
                 }
             }
         }
+
+        Log.i("N amt", Double.toString(nDiff));
+        Log.i("P amt", Double.toString(pDiff));
+        Log.i("K amt", Double.toString(kDiff));
 
         Log.i("Crop Name", cropName.get(cropPos));
         Log.i("N Value", n1List.get(cropPos).toString());
