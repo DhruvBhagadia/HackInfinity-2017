@@ -7,7 +7,11 @@ Created on Sat Nov 11 22:37:02 2017
 """
 import pandas as pd
 import numpy as np
-data = pd.read_csv('chart.csv')
+import scipy
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+
+data = pd.read_csv('chart3.csv')
 arr = list(data['value'])
 dum1 = max(list(data['value']))
 def detect_peaks(x, mph=None, mpd=1, threshold=0, edge='rising', kpsh=False, valley=False, show=False, ax=None):
@@ -96,7 +100,25 @@ def _plot(x, mph, mpd, threshold, edge, valley, ax, ind):
         ax.set_title("%s (mph=%s, mpd=%d, threshold=%s, edge='%s')"
                      % (mode, str(mph), mpd, str(threshold), edge))
         # plt.grid()
-        plt.show()
+        plt.show(False)
 print('Detect peaks with minimum height and distance filters.')
-indexes = detect_peaks(arr, mph=0.56,show=True)
+indexes = list(detect_peaks(arr,show=True))
 print('Peaks are: %s' % (indexes))
+
+data = pd.read_csv('BL_train.csv')
+print(data.columns)
+
+X = np.array(data['289']).reshape(-1, 1)
+
+y = np.array(data['Class'])
+X.shape
+y.shape
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+
+knn = KNeighborsClassifier()
+
+knn.fit(X_train, y_train)
+for i in range(0, len(indexes)-1):
+    print(arr[indexes[i]])
+    print(knn.predict(arr[indexes[i]]))
